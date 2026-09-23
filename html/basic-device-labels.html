@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Nick Kapuka" />
+
+    <title>Basic Device Label Generator</title>
+
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/generator.css">
+    <link rel="stylesheet" href="../css/device-labels.css">
+</head>
+
+<body>
+    <!-- nav bar loading -->
+    <div id="navbar-placeholder" data-root=""></div>
+    <script src="../js/navbar.js"></script>
+
+    <main class="page-wrapper">
+        <section class="intro-section tool-intro">
+            <p class="section-label">Device Labels</p>
+
+            <h1>Basic Device Label Generator</h1>
+
+            <p class="intro-description">
+                Upload a device label CSV to automatically convert existing marks and descriptions into a formatted PEMX
+                project.
+            </p>
+        </section>
+
+        <section class="generator-grid">
+            <form id="wireForm" class="form-card">
+                <h2>Input Files</h2>
+
+                <div class="form-field">
+                    <label for="wireCsv">Component CSV</label>
+
+                    <input id="wireCsv" class="file-input" type="file" accept=".csv,text/csv" required>
+
+                    <p class="field-help">
+                        Upload the component report exported from SWE as a CSV.
+                    </p>
+                </div>
+
+                <div class="form-field">
+                    <label for="templateFile">PEMX Template</label>
+
+                    <input id="templateFile" class="file-input" type="file" accept=".pemx" required>
+
+                    <p class="field-help">
+                        Select the PEMX template included with this application
+                    </p>
+                </div>
+
+                <div class="form-actions">
+                    <button id="processLabels" class="button primary-button" type="submit" disabled>
+
+                        Process Device Labels
+                    </button>
+                </div>
+            </form>
+
+            <aside class="summary-card generator-notes">
+                <h2>Basic Processing</h2>
+
+                <p>
+                    Device marks and descriptions will be directly taken from the uploaded CSV.
+                </p>
+
+                <p>
+                    Marks will be bolded and descriptions placed under them using the standard labels formatting
+                </p>
+
+                <p>
+                    This includes 10pt font for the marks and either 7-9pt font for the descriptions to fit the length.
+                </p>
+
+                <p>
+                    Empty rows and unnecessary components will be removed during processing. Marks without descriptions
+                    will likely disappear as well unless they are common (SR, CR, N, FB, etc.)
+                </p>
+
+                <p>
+                    This tool will not create, correct, or recommend device
+                    descriptions.
+                </p>
+            </aside>
+        </section>
+
+        <section id="reviewSection" class="review-section" hidden>
+            <div class="review-heading">
+                <div>
+                    <p class="section-label">Processed Device Data</p>
+                    <h2>Review Device Labels</h2>
+
+                    <p>Please review the processed records below. Descriptions and marks can be edited before generating
+                        the final .pemx file.
+                    </p>
+                </div>
+
+                <div class="review-summary">
+                    <div class="review-stat">
+                        <span id="recordCount">0</span>
+                        <p>Records</p>
+                    </div>
+
+                    <div class="review-stat">
+                        <span id="missingCount">0</span>
+                        <p>Missing Descriptions</p>
+                    </div>
+
+                    <div class="review-stat">
+                        <span id="issueCount">0</span>
+                        <p>Other issues</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-wrapper">
+                <table class="review-table">
+                    <thead>
+                        <tr>
+                            <th class="include-column">Include</th>
+                            <th>Mark</th>
+                            <th>Description</th>
+                            <th>Part Number</th>
+                            <th>Label Preview</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="deviceReviewBody">
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="review-actions">
+                <p id="reviewStatus">Review the processed records before generating the final file</p>
+
+                <button id="generateFinalPemx" class="button primary-button" type="button" disabled>
+                    Generate final PEMX file
+                </button>
+            </div>
+        </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p><b>Automatic Label Generator</b></p>
+            <p>
+                Copyright &copy; 2026 Nick Kapuka
+            </p>
+            <p>Label Tools</p>
+        </div>
+    </footer>
+
+    <script src="../js/shared/csv.js"></script>
+    <script src="../js/tool-specific/basic-device-labels.js"></script>
+</body>
+
+</html>

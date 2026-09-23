@@ -1,0 +1,89 @@
+/* wire generator intro section */
+.tool-intro {
+    margin-bottom: 24px;
+}
+
+
+/* generator page layout */
+.generator-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+    align-items: start;
+}
+
+
+/* main upload form */
+.form-card {
+    padding: 28px;
+    background-color: var(--white);
+    border-top: 4px solid var(--red);
+}
+
+.form-card h2 {
+    margin: 0 0 24px;
+    font-size: 25px;
+}
+
+.form-field {
+    margin-bottom: 24px;
+}
+
+.form-field label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.file-input {
+    width: 100%;
+    padding: 11px;
+    color: var(--dark-grey);
+    background-color: var(--light-grey);
+    border: 1px solid var(--dark-grey);
+}
+
+.field-help {
+    margin: 7px 0 0;
+    color: var(--dark-grey);
+    font-size: 14px;
+}
+
+
+/* template selection */
+.template-options {
+    margin: 0 0 24px;
+    padding: 18px;
+    border: 1px solid var(--dark-grey);
+}
+
+.template-options legend {
+    padding: 0 8px;
+    font-weight: bold;
+}
+
+.radio-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    cursor: pointer;
+}
+
+.radio-option:last-child {
+    margin-bottom: 0;
+}
+
+.radio-option input {
+    accent-color: var(--red);
+}
+
+
+/* form button */
+.form-actions {
+    margin-top: 26px;
+}
+
+.generator-notes p {
+    line-height: 1.5;
+}

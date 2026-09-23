@@ -1,0 +1,294 @@
+/* main colour palette for the website */
+:root {
+  --light-grey: #e3e3e3;
+  --dark-grey: #303030;
+  --white: #ffffff;
+  --black: #000000;
+
+  --red: #e0001b;
+  --dark-red: #ad0015;
+  --light-red: #ffe5e8;
+}
+
+/* general page setup */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: var(--dark-grey);
+  background-color: var(--light-grey);
+}
+
+/* nav-bar handling */
+.site-header {
+  background-color: var(--dark-grey);
+  border-bottom: 4px solid var(--red);
+}
+
+.navbar {
+  width: 90%;
+  max-width: 1200px;
+  min-height: 64px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.nav-brand {
+  color: var(--white);
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 8px;
+  margin: 0 0 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.nav-links a {
+  display: block;
+  padding: 20px 16px;
+  color: var(--white);
+  text-decoration: none;
+}
+
+.nav-links a:hover {
+  background-color: var(--black);
+  color: var(--white);
+}
+
+.nav-links a.active {
+  background-color: var(--black);
+  border-bottom: 3px solid var(--red);
+}
+
+/* main page layout */
+.page-wrapper {
+  width: 90%;
+  max-width: 1200px;
+  margin: 32px auto;
+  flex: 1;
+}
+
+/* intro page layout */
+.intro-section {
+  padding: 36px;
+  background-color: var(--white);
+  border-top: 5px solid var(--red);
+}
+
+.section-label {
+  margin: 0 0 8px;
+  color: var(--dark-red);
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.intro-section h1 {
+  margin: 0 0 16px;
+  color: var(--dark-grey);
+  font-size: 38px;
+  line-height: 1.2;
+}
+
+.intro-description {
+  max-width: 700px;
+  margin: 0 0 12px;
+  color: var(--dark-grey);
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.NK-name {
+  margin: -8px 0 20px;
+  color: var(--dark-grey);
+  font-style: italic;
+  opacity: 0.65;
+}
+
+/* summary cards */
+.summary-card {
+  padding: 24px;
+  background-color: var(--light-grey);
+  border-left: 4px solid var(--red);
+}
+
+.summary-card h2 {
+  margin: 0 0 14px;
+}
+
+.summary-card ol {
+  margin: 0;
+  padding-left: 22px;
+}
+
+.summary-card li {
+  margin-bottom: 8px;
+}
+
+/* buttons */
+.button-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.button {
+  display: inline-block;
+  padding: 11px 18px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.primary-button {
+  color: var(--white);
+  background-color: var(--red);
+}
+
+.primary-button:hover {
+  color: var(--white);
+  background-color: var(--dark-red);
+}
+
+/* section headings */
+.section-heading {
+  margin-bottom: 24px;
+}
+
+.section-heading h2 {
+  margin: 0 0 12px;
+  color: var(--dark-grey);
+  font-size: 28px;
+}
+
+.section-heading h2::after {
+  content: "";
+  display: block;
+  width: 65px;
+  height: 4px;
+  margin-top: 10px;
+  background-color: var(--red);
+}
+
+.section-description {
+  max-width: 700px;
+  margin: 0;
+  color: var(--dark-grey);
+  line-height: 1.6;
+}
+
+/* card layouts */
+.card-grid {
+  display: grid;
+  gap: 24px;
+}
+
+.info-card {
+  display: flex;
+  flex-direction: column;
+  padding: 26px;
+  background-color: var(--white);
+  border-left: 4px solid var(--red);
+}
+
+.info-card h3 {
+  margin: 0 0 12px;
+
+  color: var(--dark-grey);
+  font-size: 21px;
+}
+
+.info-card p {
+  margin: 0 0 14px;
+  line-height: 1.5;
+}
+
+.info-card .button-row {
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+.tool-inputs {
+  font-size: 14px;
+}
+
+.summary-card,
+.info-card {
+  border-top: 1px solid var(--light-grey);
+  border-right: 1px solid var(--light-grey);
+  border-bottom: 1px solid var(--light-grey);
+}
+
+/* secondary and disabled buttons */
+.secondary-button {
+  color: var(--dark-grey);
+  background-color: var(--white);
+  border: 1px solid var(--dark-grey);
+}
+
+.secondary-button:hover {
+  color: var(--white);
+  background-color: var(--dark-grey);
+}
+
+.button:disabled {
+  color: var(--dark-grey);
+  background-color: var(--light-grey);
+  border: 1px solid var(--dark-grey);
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* footer */
+.site-footer {
+  margin-top: 40px;
+  padding: 18px 0;
+  color: var(--white);
+  background-color: var(--red);
+}
+
+.footer-content {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-content p {
+  margin: 0;
+}
+
+/* additional information inside summary cards */
+.summary-note {
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid var(--dark-grey);
+}
+
+.summary-note h3 {
+  margin: 0 0 10px;
+  font-size: 17px;
+}
+
+.summary-note p {
+  margin: 0 0 12px;
+  line-height: 1.5;
+}
+
+.summary-note p:last-child {
+  margin-bottom: 0;
+}

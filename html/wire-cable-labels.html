@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Nick Kapuka" />
+
+    <title>Wire and Cable Label Generator</title>
+
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/generator.css">
+</head>
+
+<body>
+    <!-- nav bar loading -->
+    <div id="navbar-placeholder" data-root=""></div>
+    <script src="../js/navbar.js"></script>
+
+    <main class="page-wrapper">
+        <section class="intro-section tool-intro">
+            <p class="section-label">Wire and Cable Labels</p>
+
+            <h1>Wire and Cable Label Generator</h1>
+
+            <p class="intro-description">
+                Upload a seperate wire and cable CSV to automatically sort the marks, create duplicate labels for
+                both ends, and
+                generate a .pemx file ready for printing.
+            </p>
+        </section>
+
+        <section class="generator-grid">
+            <form id="wireForm" class="form-card">
+                <h2>Input Files</h2>
+
+                <div class="form-field">
+                    <label for="wireCsv">Wire CSV</label>
+
+                    <input id="wireCsv" class="file-input" type="file" accept=".csv,text/csv" required>
+
+                    <p class="field-help">
+                        Upload the exported wire report from SWE as CSV
+                    </p>
+                </div>
+
+                <div class="form-field">
+                    <label for="wireCsv">Cable CSV</label>
+
+                    <input id="wireCsv" class="file-input" type="file" accept=".csv,text/csv" required>
+
+                    <p class="field-help">
+                        Upload the exported cable report from SWE as CSV
+                    </p>
+                </div>
+
+                <div class="form-field">
+                    <label for="templateFile">PEMX Template</label>
+
+                    <input id="templateFile" class="file-input" type="file" accept=".pemx" required>
+
+                    <p class="field-help">
+                        Select the PEMX template included with this application
+                    </p>
+                </div>
+
+                <div class="form-actions">
+                    <button id="processLabels" class="button primary-button" type="submit" disabled>
+
+                        Process Wire and Cable Labels
+                    </button>
+                </div>
+            </form>
+
+            <aside class="summary-card generator-notes">
+                <h2>Wires and Cables</h2>
+
+                <p>
+                    The wire number should appear in the first column of the CSV. Other columns will be ignored during
+                    processing. Each wire number will be automatically duplicated to create a label for both ends of a
+                    wire.
+                </p>
+
+                <p>
+                    Cable marks should appear in the first column of the cable CSV.
+                    Cable-specific formatting will be handled separately.
+                </p>
+
+                <p>
+                    Empty rows and the header row will be ignored and removed during processing.
+                </p>
+            </aside>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p><b>Automatic Label Generator</b></p>
+            <p>
+                Copyright &copy; 2026 Nick Kapuka
+            </p>
+            <p>Label Tools</p>
+        </div>
+    </footer>
+
+    <script src="../js/shared/csv.js"></script>
+    <script src="../js/tool-specific/wire-cable-labels.js"></script>
+</body>
+
+</html>

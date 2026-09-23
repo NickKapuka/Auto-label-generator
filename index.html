@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Nick Kapuka" />
+  <title>Home</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+  <!-- nav bar -->
+  <div id="navbar-placeholder" data-root=""></div>
+  <script src="js/navbar.js"></script>
+
+  <main id="main" class="page-wrapper">
+    <section class="intro-section home-intro">
+      <div class="intro-text">
+        <p class="section-label">Automating Labels</p>
+
+        <h1>Create Wire, Cable, and Device Labels Automatically</h1>
+        <p class="NK-name">By Nick Kapuka</p>
+
+        <p class="intro-description">
+          Converts exported SWE data (SWE -> Excel -> CSV) into a fully formatted Easy-Mark Plus project.
+          No manual sorting and styling by hand.
+        </p>
+
+        <p class="intro-description">
+          Choose what type of generator you would like to use. Each will redirect you to a new page with a guided
+          walkthrough on its use.
+        </p>
+
+        <div class="button-row">
+          <a href="#tools" class="button primary-button">View Label Tools</a>
+        </div>
+      </div>
+
+      <aside class="summary-card">
+        <h2>How it works:</h2>
+        <ol>
+          <li>Choose the tool from the list below</li>
+          <li>Export the required report from SWE as an Excel</li>
+          <li>Convert it into an CSV and upload it here</li>
+          <li>Upload the PEMX template included in this project</li>
+          <li>Review the generated labels</li>
+          <li>Generate the PEMX pre-render</li>
+          <li>Download the final .pemx file</li>
+        </ol>
+
+        <div class="summary-note">
+          <h3>File requiremenets:</h3>
+          <p>Excel files (.xlsx) are not supported. Export the SWE report as a CSV in Excel and upload it
+            here. Don't remove columns or any sorting. The selected tool expects the default SWE export and
+            handles the cleanup and formatting.</p>
+
+          <p>The PEMX template must still be selected manually because this application runs in a browser. A PEMX
+            template
+            has been provided inside this project as "template.pemx" for easy access.</p>
+        </div>
+      </aside>
+    </section>
+
+
+    <section id="tools">
+      <div class="section-heading">
+        <p class="section-label">Label Functions</p>
+
+        <h2>Choose a label tool from the ones below</h2>
+
+        <p class="section-description">
+          Select the type of labels you want to generate.
+          Each tool requires different input files and processes data differently.
+        </p>
+      </div>
+
+      <div class="card-grid tools-grid">
+        <article class="info-card">
+          <h3>Wire Labels</h3>
+
+          <p>
+            Reads wire numbers from a CSV import, sorts them, duplicates each label for both ends of the wire, and
+            generates a .pemx file ready for printing.
+          </p>
+
+          <p class="tool-inputs">
+            <b>Requires:</b>Wire export as CSV
+          </p>
+
+          <div class="button-row">
+            <a href="html/wire-labels.html" class="button secondary-button">
+              Go to wire label generator
+            </a>
+          </div>
+        </article>
+
+        <article class="info-card">
+          <h3>Wire and Cable Labels</h3>
+
+          <p>Processes two wire and cable CSVs together and generates both sets in the same .pemx with proper
+            formatting.
+          </p>
+
+          <p class="tool-inputs">
+            <b>Requires:</b>Wire CSV and cable CSV
+          </p>
+
+          <div class="button-row">
+            <a href="html/wire-cable-labels.html" class="button secondary-button">
+              Go to wire and cable label generator
+            </a>
+          </div>
+        </article>
+
+        <article class="info-card">
+          <h3>Basic Device Labels</h3>
+
+          <p>
+            Formats the marks and descriptions existing in the CSV without generating automatic recommendations or any
+            heavy post-processing. Use this if you put descriptions on <i>most</i> components in SWE.
+          </p>
+
+          <p class="tool-inputs">
+            <b>Requires:</b> Component CSV
+          </p>
+
+          <div class="button-row">
+            <a href="html/basic-device-labels.html" class="button secondary-button">
+              Go to basic device label generator
+            </a>
+          </div>
+        </article>
+
+        <article class="info-card">
+          <h3>Smart Device Labels</h3>
+
+          <p>
+            Adds description recommendations using a part-number lookup table. These can be accepted, reject, or edited
+            before the final export occurs.
+          </p>
+          <p>Useful if descriptions are left blank or formatted incorrectly.</p>
+
+          <p class="tool-inputs">
+            <b>Requires:</b> Component CSV
+          </p>
+
+          <div class="button-row">
+            <a href="html/smart-device-labels.html" class="button secondary-button">
+              Open Smart Device Generator
+            </a>
+          </div>
+        </article>
+      </div>
+
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <p><b>Automatic Label Generator</b></p>
+      <p>
+        Copyright &copy; 2026 Nick Kapuka
+      </p>
+      <p>Label Tools</p>
+    </div>
+  </footer>
+</body>
+
+</html>

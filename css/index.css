@@ -1,0 +1,32 @@
+/* homepage introduction layout */
+.home-intro {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 32px;
+    align-items: center;
+}
+
+/* label tool section */
+#tools {
+    margin-top: 40px;
+}
+
+.tools-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+
+/* stack tool cards on smaller screens */
+@media screen and (max-width: 750px) {
+    .tools-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* stack the introduction on smaller screens */
+@media screen and (max-width: 750px) {
+    .home-intro {
+        grid-template-columns: 1fr;
+    }
+}

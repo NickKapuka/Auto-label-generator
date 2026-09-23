@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Nick Kapuka" />
+
+    <title>Smart Device Label Generator</title>
+
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/generator.css">
+</head>
+
+<body>
+    <!-- nav bar loading -->
+    <div id="navbar-placeholder" data-root=""></div>
+    <script src="../js/navbar.js"></script>
+
+    <main class="page-wrapper">
+        <section class="intro-section tool-intro">
+            <p class="section-label">Device Labels</p>
+
+            <h1>Smart Device Label Generator</h1>
+
+            <p class="intro-description">
+                Process device marks, descriptions, and part numbers to identify any missing or inconsistent
+                descriptions before generating the final .pemx project.
+            </p>
+        </section>
+
+        <section class="generator-grid">
+            <form id="wireForm" class="form-card">
+                <h2>Input Files</h2>
+
+                <div class="form-field">
+                    <label for="wireCsv">Component CSV</label>
+
+                    <input id="wireCsv" class="file-input" type="file" accept=".csv,text/csv" required>
+
+                    <p class="field-help">
+                        Upload the component report exported from SWE as a CSV.
+                    </p>
+                </div>
+
+                <div class="form-field">
+                    <label for="templateFile">PEMX Template</label>
+
+                    <input id="templateFile" class="file-input" type="file" accept=".pemx" required>
+
+                    <p class="field-help">
+                        Select the PEMX template included with this application
+                    </p>
+                </div>
+
+                <div class="form-actions">
+                    <button id="processLabels" class="button primary-button" type="submit" disabled>
+
+                        Process and Review Labels
+                    </button>
+                </div>
+            </form>
+
+            <aside class="summary-card generator-notes">
+                <h2>Smart Processing</h2>
+
+                <p>
+                    Device marks, existing descriptions and manufacturer part numbers (third column) will all be
+                    examined during processing.
+                </p>
+
+                <p>
+                    A part-number lookup table will be used to recommend any missing descriptions or format existing
+                    ones into the standardized format.
+                </p>
+
+                <p>
+                    Recommendations will be loaded into a table where they may be accepted, rejected, or edited before
+                    the final PEMX file.
+                </p>
+
+                <p>
+                    The original CSV will not be modified.
+                </p>
+            </aside>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p><b>Automatic Label Generator</b></p>
+            <p>
+                Copyright &copy; 2026 Nick Kapuka
+            </p>
+            <p>Label Tools</p>
+        </div>
+    </footer>
+
+    <script src="../js/shared/csv.js"></script>
+    <script src="../js/tool-specific/smart-device-label.js"></script>
+</body>
+
+</html>
