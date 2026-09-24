@@ -201,9 +201,14 @@ function createReviewRow (record) {
     const descInput = createTextInput(record.description);
     descCell.appendChild(descInput);
 
-    // create the editable part nubmber field?
+    // create the part nubmber field
     const pnCell = createTableCell(row);
-    const pnInput = createTextInput(record.partNumber);
+
+    // when display part numbers, split the array with slashes for multiple part numbers
+    const displayedPartNumbers = record.partNumbers.join(' / ');
+    const pnInput = createTextInput(displayedPartNumbers);
+
+    pnInput.readOnly = true;
     pnCell.appendChild(pnInput);
 
     // create the label preview
@@ -250,16 +255,11 @@ function createReviewRow (record) {
         updatedDesc = updatedDesc.toUpperCase();
         record.description  = updatedDesc;
 
+        // editing the description resolves the original source conflict
+        removeIssue(record, 'CONFLICTING DESCRIPTIONS');
+
         updateRecordStatus(record, row, previewContainer, statusElement);
         updateReviewSummary();
-    });
-
-    // preserve an edited part number for later smart processing
-    pnInput.addEventListener('input', function () {
-        let updatedPartNumber = pnInput.value.trim();
-
-        updatedPartNumber = updatedPartNumber.toUpperCase();
-        record.partNumber = updatedPartNumber;
     });
 
     // render the initial preview and status
@@ -373,7 +373,6 @@ function generateFinalPemx() {
             const finalRecord = {
                 mark: reviewedRecord.mark.trim().toUpperCase(),
                 description: reviewedRecord.description.trim().toUpperCase(),
-                partNumber: reviewedRecord.partNumber.trim().toUpperCase()
             };
 
             if (finalRecord.mark === '' || finalRecord.description === '') {

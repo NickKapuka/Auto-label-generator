@@ -35,6 +35,7 @@ function getDeviceRecords (rows) {
 
         let description = descCell.trim();
         description = description.toUpperCase();
+        description = removeRepeatedText(description);
 
         let partNumber = pnCell.trim();
         partNumber = partNumber.toUpperCase();
@@ -49,8 +50,8 @@ function getDeviceRecords (rows) {
             continue;
         }
 
-        // ignore devices that start with FU unless they have a description
-        if(mark.startsWith('FU') && description === '') {
+        // ignore devices that start with FU, PN, FC unless they have a description
+        if(mark.startsWith('FU') || mark.startsWith('PN') || mark.startsWith ('FC') || mark.startsWith('EXH') || mark.startsWith('PI') || mark.startsWith('PL') && description === '') {
             continue;
         }
 
@@ -60,11 +61,12 @@ function getDeviceRecords (rows) {
             const record = {
                 mark: mark,
                 description: description,
-                partNumber: partNumber,
+                partNumbers: [],
                 sourceCount: 1,
                 issues: []
             };
 
+            addUniquePartNumber(record.partNumbers, partNumber);
             recordsByMark.set(mark, record);
             continue;
         }
@@ -74,22 +76,16 @@ function getDeviceRecords (rows) {
 
         existingRecord.sourceCount++;
 
+        // preserve every unique part number associated with this mark
+        addUniquePartNumber(existingRecord.partNumbers, partNumber);
+
         // keep a description when the existing record is blank
         if (existingRecord.description === '' && description !== '') {
             existingRecord.description = description;
             
         // report different descriptions instead of silently replacing one
         } else if (description !== '' && existingRecord.description !== description) {
-            existingRecord.issues.push('CONFLICTING DESCRIPTIONS');
-        }
-
-        // keep a part number when the existing record is blank
-        if (existingRecord.partNumber === '' && partNumber !== '') {
-            existingRecord.partNumber = partNumber;
-
-        // report different part numbers instead of replacing one
-        } else if (partNumber !== '' && existingRecord.partNumber !== partNumber) {
-            existingRecord.issues.push('CONFLICTING PART NUMBERS');
+            addIssueOnce(existingRecord, 'CONFLICTING DESCRIPTIONS');
         }
 
     }
@@ -100,29 +96,6 @@ function getDeviceRecords (rows) {
 
     return records;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // split descriptions into lines using character limits and handling
 function wrapText (text, maxChars) {
@@ -181,17 +154,28 @@ function formatDescription (description) {
   // check whether this fuse type uses the smaller single-line format
   const correctFuse = getFuseType === 'MDL' || getFuseType === 'ABC';
 
-  // place supported fuse descriptions on one small line
-  if (singleLineFuse && correctFuse) {
-    return {
-      lines: [fullDesc],
-      fontSize: 7
-    };
-  }
+  // place supported fuse descriptions on one compact line
+    if (singleLineFuse && correctFuse) {
+        let compactFuseDescription = '';
+
+        // rebuild the comma-separated description without unnecessary spaces
+        for (let i = 0; i < fuseParts.length; i++) {
+            if (i > 0) {
+                compactFuseDescription += ',';
+            }
+
+            compactFuseDescription += fuseParts[i].trim();
+        }
+
+        return {
+            lines: [compactFuseDescription],
+            fontSize: 7
+        };
+    }
 
   // start with the normal desc size and char limit
   let fontSize = 9;
-  let maxChars = 13;
+  let maxChars = 12;
 
   // automatically divie the description into printable lines
   let lines = wrapText(fullDesc, maxChars);
@@ -326,4 +310,73 @@ function buildProject (templateProject, formattedLabels) {
     deviceLabelDoc.labels = newLabels;
 
     return project;
+}
+
+// remove descriptions that SWE exported multiple times in the same cell
+function removeRepeatedText (text) {
+    const cleanedText = text.trim();
+
+    // try every possible repeated section length
+    for (let sectionLength = 1; sectionLength <= cleanedText.length / 2; sectionLength++) {
+        
+        // repeated sections must divide evenly into the complete string
+        if (cleanedText.length % sectionLength !== 0) {
+            continue;
+        }
+
+        const section = cleanedText.slice(0, sectionLength);
+        let rebuiltText = '';
+        
+        // rebuild the full description using the possible repeated section
+        while (rebuiltText.length < cleanedText.length) {
+            rebuiltText += section;
+        }
+
+        // return one copy when the rebuilt text matches the original
+        if (rebuiltText === cleanedText) {
+            return section.trim();
+        }
+    }
+
+    return cleanedText;
+}
+
+// add a part number unless the record already contains it
+function addUniquePartNumber (partNumbers, newPartNumber) {
+    if (newPartNumber === '') {
+        return;
+    }
+
+    // search the existing part numbers
+    for (let i = 0; i < partNumbers.length; i++) {
+        if (partNumbers[i] === newPartNumber) {
+            return;
+        }
+    }
+
+    partNumbers.push(newPartNumber);
+}
+
+// add an issue unless the record already contains it
+function addIssueOnce (record, newIssue) {
+
+    for (let i = 0; i < record.issues.length; i++) {
+        if (record.issues[i] === newIssue) {
+            return;
+        }
+    }
+    record.issues.push(newIssue);
+}
+
+// remove a specific issue from a device record
+function removeIssue (record, issueToRemove) {
+    const remainingIssues = [];
+
+    for (let i = 0; i < record.issues.length; i++) {
+        if (record.issues[i] !== issueToRemove) {
+            remainingIssues.push(record.issues[i]);
+        }
+    }
+
+    record.issues = remainingIssues;
 }
