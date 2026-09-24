@@ -31,13 +31,20 @@
         </section>
 
         <section class="generator-grid">
-            <form id="wireForm" class="form-card">
+            <form id="basicDeviceForm" class="form-card">
                 <h2>Input Files</h2>
 
                 <div class="form-field">
-                    <label for="wireCsv">Component CSV</label>
+                    <label for="projectNumber">Project Number</label>
+                    <input id="projectNumber" class="text-input" type="text" placeholder="Example: 26099"
+                        autocomplete="off" required>
+                    <p class="field-help">The final file will be named “26099 - Device Labels.pemx”</p>
+                </div>
 
-                    <input id="wireCsv" class="file-input" type="file" accept=".csv,text/csv" required>
+                <div class="form-field">
+                    <label for="componentCsv">Component CSV</label>
+
+                    <input id="componentCsv" class="file-input" type="file" accept=".csv,text/csv" required>
 
                     <p class="field-help">
                         Upload the component report exported from SWE as a CSV.
@@ -55,6 +62,7 @@
                 </div>
 
                 <div class="form-actions">
+                    <p id="processingStatus" class="field-help"></p>
                     <button id="processLabels" class="button primary-button" type="submit" disabled>
 
                         Process Device Labels
@@ -78,8 +86,8 @@
                 </p>
 
                 <p>
-                    Empty rows and unnecessary components will be removed during processing. Marks without descriptions
-                    will likely disappear as well unless they are common (SR, CR, N, FB, etc.)
+                    Marks without descriptions will remain in the review table where they can be accepted or excluded
+                    before generating the final file.
                 </p>
 
                 <p>
@@ -108,7 +116,7 @@
 
                     <div class="review-stat">
                         <span id="missingCount">0</span>
-                        <p>Missing Descriptions</p>
+                        <p>Missing Fields</p>
                     </div>
 
                     <div class="review-stat">
@@ -144,24 +152,6 @@
                 </button>
             </div>
         </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     </main>
 
     <footer class="site-footer">
@@ -175,6 +165,9 @@
     </footer>
 
     <script src="../js/shared/csv.js"></script>
+    <script src="../js/shared/zip.js"></script>
+    <script src="../js/shared/pemx.js"></script>
+    <script src="../js/shared/device-labels.js"></script>
     <script src="../js/tool-specific/basic-device-labels.js"></script>
 </body>
 
