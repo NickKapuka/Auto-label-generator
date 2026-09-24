@@ -36,6 +36,7 @@ function getDeviceRecords (rows) {
         let description = descCell.trim();
         description = description.toUpperCase();
         description = removeRepeatedText(description);
+        description = normalizeFuseDescription(description);
 
         let partNumber = pnCell.trim();
         partNumber = partNumber.toUpperCase();
@@ -50,8 +51,14 @@ function getDeviceRecords (rows) {
             continue;
         }
 
-        // ignore devices that start with FU, PN, FC unless they have a description
-        if(mark.startsWith('FU') || mark.startsWith('PN') || mark.startsWith ('FC') || mark.startsWith('EXH') || mark.startsWith('PI') || mark.startsWith('PL') && description === '') {
+        // ignore blank FU records because the associated FB mark is the one that usually contains the actual fuse spec
+        if (mark.startsWith('FU') && description === '') {
+            continue;
+        }
+
+        // ignore excluded devices before any label-specific processing
+        // update it in js/data/exclusions.js
+        if (isExcludedDeviceMark(mark)) {
             continue;
         }
 
@@ -379,4 +386,34 @@ function removeIssue (record, issueToRemove) {
     }
 
     record.issues = remainingIssues;
+}
+
+// check whether a mark belongs to an excluded device category
+function isExcludedDeviceMark (mark) {
+    for (let i = 0; i < EXCLUDED_DEVICE_PREFIXES.length; i++) {
+        const excludedPrefix = EXCLUDED_DEVICE_PREFIXES[i];
+
+        if (mark.startsWith(excludedPrefix)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+// replace SWE fuse dimensions with their standard fuse types
+// not true for all projects but it can happen so this is just a sanity check
+function normalizeFuseDescription (description) {
+    const glassFuseText = '1-1/4" X 1/4" GLASS';
+    const ceramicFuseText = '1-1/4" X 1/4" CERAMIC';
+
+    if (description.includes(glassFuseText)) {
+        return description.replace(glassFuseText, 'MDL');
+    }
+
+    if (description.includes(ceramicFuseText)) {
+        return description.replace(ceramicFuseText, 'ABC');
+    }
+
+    return description;
 }
